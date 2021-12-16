@@ -9,10 +9,10 @@ const server = require("./src/app.js");
 //   });
 // });
 
-server.listen({ port: process.env.PORT || 3001 }).then(({ url }) => {
-  console.log(`Servidor listo en la URL ${url}`);
-});
-
-// server.listen({ port: process.env.PORT || 3001 }, () => {
-//   console.log("%s listening at 3001"); // eslint-disable-line no-console
+// server.listen({ port: process.env.PORT || 3001 }).then(({ url }) => {
+//   console.log(`Servidor listo en la URL ${url}`);
 // });
+
+server.listen({ port: process.env.PORT || 3001 }, () => {
+  console.log("%s listening at 3001"); // eslint-disable-line no-console
+});
