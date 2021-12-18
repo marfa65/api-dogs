@@ -1,5 +1,7 @@
 const { Router } = require("express");
 const axios = require("axios");
+const {User} = require ('../db')
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 // const countryRouter = require("./country.js");
@@ -15,6 +17,16 @@ router.get("/api", async (req, res) => {
   res.json(info.data);
   //   res.send("Hola");
 });
+
+router.post('/user', async (req,res) => {
+  const {name, lastName} = req.body;
+  let newUser = await User.create({
+    name,
+    lastName,
+  })
+  res.status(200).json(newUser)
+  
+})
 
 // https://api.thedogapi.com/v1/images/search
 
