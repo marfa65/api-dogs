@@ -3,9 +3,20 @@ const { conn } = require("./src/db.js");
 
 // Syncing all the models at once.
 
+function connectionPort (localPort){
+  let connection_port;
+  if (process.env.DATABASE_URL){
+    connection_port = process.env.PORT
+  }else{
+    connection_port = localPort
+  }
+  return connection_port
+}
+
 conn.sync({ force: false }).then(() => {
-  server.listen({ port: process.env.PORT || 3001 }, () => {
-    console.log("%s listening at 3001"); // eslint-disable-line no-console
+  const port = connectionPort(3001) 
+  server.listen(port, () => {
+    console.log(`%s listening at ${port}`); // eslint-disable-line no-console
   });
 });
 
