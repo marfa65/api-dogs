@@ -15,7 +15,7 @@ function connectionPort(localPort) {
   return connection_port;
 }
 
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   const port = connectionPort(3001);
   console.log("PUERTO", port);
   server.listen(port, () => {
