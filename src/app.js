@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 const routes = require("./routes/index.js");
 
 require("./db.js");
@@ -9,6 +10,7 @@ const server = express();
 
 server.name = "API-DOGS";
 
+server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(express.json());
 server.use(cookieParser());
 server.use(morgan("dev"));
