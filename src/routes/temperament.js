@@ -1,7 +1,17 @@
 const { Router } = require("express");
 const { v4: uuidv4 } = require("uuid");
+const { getApiTemperament } = require("./utils");
 
 const router = Router();
+
+router.get("/", async (req, res) => {
+  try {
+    const dataTemperament = await getApiTemperament();
+    res.json(dataTemperament);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 router.post("/", async (req, res) => {
   const { name } = req.body;
