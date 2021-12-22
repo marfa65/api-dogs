@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const { v4: uuidv4 } = require("uuid");
-const { Breed } = require("../db");
+const { Breed, Temperament } = require("../db");
 
-const { getApiInfo } = require("./utils.js");
+const { getApiInfo, getDbAll } = require("./utils.js");
 
 const router = Router();
 
@@ -16,7 +16,8 @@ const router = Router();
 // });
 router.get("/", async (req, res) => {
   try {
-    const dogsApi = await getApiInfo();
+    // const dogsApi = await getApiInfo();
+    const dogsApi = await getDbAll();
 
     res.status(200).send(dogsApi);
   } catch (error) {
@@ -26,7 +27,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { name, height, weight, age, createdDb } = req.body;
+  const { name, height, weight, age, createdDb, temperaments } = req.body;
   let newBreed = await Breed.create({
     id: uuidv4(),
     name,
@@ -35,7 +36,16 @@ router.post("/", async (req, res) => {
     age,
     createdDb,
   });
-  res.status(200).json(newBreed);
+  await newBreed.setTemperaments(temperaments);
+
+  let breadCreated = await Breed.findByPk(newBreed.id, {
+    include: {
+      model: Temperament,
+      attributes: ["name", "id"],
+      through: { attributes: [] },
+    },
+  });
+  res.status(200).json(breadCreated);
 });
 
 module.exports = router;

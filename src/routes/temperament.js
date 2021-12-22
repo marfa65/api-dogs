@@ -4,6 +4,15 @@ const { getApiTemperament } = require("./utils");
 
 const router = Router();
 
+router.get("/api", async (req, res) => {
+  try {
+    const dataTemperament = await getApiTemperament();
+    res.json(dataTemperament);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     const dataTemperament = await getApiTemperament();
