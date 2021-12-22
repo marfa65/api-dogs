@@ -16,6 +16,37 @@ const getApiInfo = async () => {
   }
 };
 
+const getDbAll = async () => {
+  try {
+    const infoDb = await Breed.findAll({
+      include: {
+        model: Temperament,
+        attributes: ["id", "name"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+
+    let infoDogs = infoDb.map((e) => (e = e.dataValues));
+    infoDogs = infoDogs.map((d) => {
+      return {
+        id: d.id,
+        name: d.name,
+        height: d.height,
+        weight: d.weight,
+        age: d.age,
+        createdDb: d.createdDb,
+        temperament: d.temperament,
+      };
+    });
+    return infoDogs;
+  } catch (error) {
+    console.log("error en servidor local:", error);
+    return error;
+  }
+};
+
 const getApiTemperament = async () => {
   try {
     const dataApi = await getApiInfo();
@@ -51,4 +82,5 @@ const getApiTemperament = async () => {
 module.exports = {
   getApiInfo,
   getApiTemperament,
+  getDbAll,
 };
