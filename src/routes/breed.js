@@ -28,24 +28,29 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const { name, height, weight, age, createdDb, temperaments } = req.body;
-  let newBreed = await Breed.create({
-    id: uuidv4(),
-    name,
-    height,
-    weight,
-    age,
-    createdDb,
-  });
-  await newBreed.setTemperaments(temperaments);
+  try {
+    let newBreed = await Breed.create({
+      id: uuidv4(),
+      name,
+      height,
+      weight,
+      age,
+      createdDb,
+    });
+    await newBreed.setTemperaments(temperaments);
 
-  let breadCreated = await Breed.findByPk(newBreed.id, {
-    include: {
-      model: Temperament,
-      attributes: ["name", "id"],
-      through: { attributes: [] },
-    },
-  });
-  res.status(200).json(breadCreated);
+    let breadCreated = await Breed.findByPk(newBreed.id, {
+      include: {
+        model: Temperament,
+        attributes: ["name", "id"],
+        through: { attributes: [] },
+      },
+    });
+    res.status(200).json(breadCreated);
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 });
 
 module.exports = router;
