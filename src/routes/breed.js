@@ -27,7 +27,8 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { name, height, weight, age, createdDb, temperaments } = req.body;
+  const { name, height, weight, age, image, createdDb, temperaments } =
+    req.body;
   try {
     let newBreed = await Breed.create({
       id: uuidv4(),
@@ -35,6 +36,7 @@ router.post("/", async (req, res) => {
       height,
       weight,
       age,
+      image,
       createdDb,
     });
     await newBreed.setTemperaments(temperaments);

@@ -26,6 +26,10 @@ module.exports = (sequelize) => {
       age: {
         type: DataTypes.INTEGER,
       },
+      image: {
+        type: DataTypes.STRING,
+        defaultValue: "src/images/perro.jpg",
+      },
       createdDb: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,

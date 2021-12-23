@@ -36,6 +36,7 @@ const getDbAll = async () => {
         height: d.height,
         weight: d.weight,
         age: d.age,
+        image: d.image,
         createdDb: d.createdDb,
         temperament: d.temperament,
       };
