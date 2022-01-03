@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { v4: uuidv4 } = require("uuid");
 const { Breed, Temperament } = require("../db");
 
-const { getApiInfo, getDbAll } = require("./utils.js");
+const { getApiInfo, getDbAll, getAllInfo } = require("./utils.js");
 
 const router = Router();
 
@@ -17,7 +17,8 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     // const dogsApi = await getApiInfo();
-    const dogsApi = await getDbAll();
+    // const dogsApi = await getDbAll();
+    const dogsApi = await getAllInfo();
 
     res.status(200).send(dogsApi);
   } catch (error) {

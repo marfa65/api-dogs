@@ -48,6 +48,18 @@ const getDbAll = async () => {
   }
 };
 
+const getAllInfo = async () => {
+  try {
+    const getApiInf = await getApiInfo();
+    console.log("getApiInfo", getApiInf);
+    // let infoApi = getApiInfo.map
+    return getApiInf;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 const getApiTemperament = async () => {
   try {
     const dataApi = await getApiInfo();
@@ -84,4 +96,5 @@ module.exports = {
   getApiInfo,
   getApiTemperament,
   getDbAll,
+  getAllInfo,
 };
